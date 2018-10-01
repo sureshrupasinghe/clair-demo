@@ -26,6 +26,7 @@ build:
       echo "docker network:"
       docker network ls | grep "w-" | awk ' { print $1; } ' | xargs docker network inspect 
       docker ps -a
+      docker ps -a | grep "clair-db" | awk ' { print $1; } ' | xargs docker inspect 
       ./clair-scanner --ip=`hostname -i` --report="report.json" --clair="http://clair:6060" alpine:3.5 
       cat report.json
       OK=`grep "\"vulnerabilities\": \[\]" report.json | wc -l`
