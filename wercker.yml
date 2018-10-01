@@ -24,6 +24,7 @@ build:
       docker pull alpine:3.5
       ./clair-scanner --ip=`hostname -i` --report="report.json" --clair="http://clair:6060" alpine:3.5 
       sleep 10 # to make sure clair service has started
+      echo "docker network:"
       docker network ls
       cat report.json
       OK=`grep "\"vulnerabilities\": \[\]" report.json | wc -l`
