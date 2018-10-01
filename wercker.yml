@@ -25,6 +25,7 @@ build:
       sleep 10 # to make sure clair service has started
       echo "docker network:"
       docker network ls | grep "w-" | awk ' { print $1; } ' | xargs docker network inspect 
+      docker ps -a
       ./clair-scanner --ip=`hostname -i` --report="report.json" --clair="http://clair:6060" alpine:3.5 
       cat report.json
       OK=`grep "\"vulnerabilities\": \[\]" report.json | wc -l`
